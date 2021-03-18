@@ -2,6 +2,7 @@ import Grid from '@material-ui/core/Grid';
 import Head from 'next/head';
 import React from 'react';
 import Card from '../components/card/card';
+import Speech from '../components/speech-recognition';
 
 const SinglePlayerPage: React.FC = () => {
   return (
@@ -15,7 +16,9 @@ const SinglePlayerPage: React.FC = () => {
           <Card>Tests</Card>
         </Grid>
         <Grid item md={4} xs={12} sm={6}>
-          <Card>Tests</Card>
+          <Card>
+            <Speech />
+          </Card>
         </Grid>
       </Grid>
     </div>
