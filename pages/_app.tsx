@@ -1,7 +1,16 @@
-import '../styles/globals.css'
+import React from 'react';
+import { MainLayout } from '../components/layout';
+import { ThemeContainer } from '../components/themes';
+import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
-}
+const MyApp = ({ Component, pageProps }) => {
+  return (
+    <ThemeContainer>
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
+    </ThemeContainer>
+  );
+};
 
-export default MyApp
+export default MyApp;
