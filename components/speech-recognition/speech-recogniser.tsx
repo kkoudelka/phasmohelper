@@ -5,9 +5,11 @@ import React, { useEffect, useState } from 'react';
 import SpeechRecognition, {
   useSpeechRecognition,
 } from 'react-speech-recognition';
+import MicNoneOutlinedIcon from '@material-ui/icons/MicNoneOutlined';
+import MicOffOutlinedIcon from '@material-ui/icons/MicOffOutlined';
 
 const SpeechRecogniser: React.FC = () => {
-  const [t, setT] = useState<string[]>([]);
+  const [final, setFinal] = useState<string>('');
   const [enabled, setEnabled] = useState(false);
 
   const {
@@ -26,7 +28,7 @@ const SpeechRecogniser: React.FC = () => {
       SpeechRecognition.browserSupportsSpeechRecognition() &&
       enabled
     ) {
-      if (finalTranscript) setT([finalTranscript, ...t]);
+      if (finalTranscript) setFinal(finalTranscript);
       SpeechRecognition.startListening();
     }
   }, [listening]);
@@ -40,31 +42,25 @@ const SpeechRecogniser: React.FC = () => {
 
   return (
     <div>
-      <Typography variant="h6">Speech recognition</Typography>
-      <Grid container direction="row" justify="space-around">
-        <Grid item>
-          <Button onClick={handleToggle} color="primary" variant="contained">
-            {enabled ? 'Turn off' : 'Turn on'}
-          </Button>
+      <Grid container direction="column" alignItems="center">
+        <Grid container item direction="row" justify="space-around">
+          <Grid item>
+            <Typography variant="h6">Speech recognition</Typography>
+          </Grid>
+          <Grid item>
+            <Button onClick={handleToggle} color="primary" variant="contained">
+              {!enabled ? <MicOffOutlinedIcon /> : <MicNoneOutlinedIcon />}
+              {!enabled ? 'Disabled' : 'Enabled'}
+            </Button>
+          </Grid>
         </Grid>
         <Grid item>
-          <Button
-            color="primary"
-            variant="outlined"
-            size="small"
-            onClick={() => resetTranscript()}
-          >
-            Reset
-          </Button>
+          <Typography variant="caption">{transcript}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="caption">{final}</Typography>
         </Grid>
       </Grid>
-
-      <Typography variant="caption">{transcript}</Typography>
-      <ul>
-        {t.slice(0, 2).map((x, key) => (
-          <li key={key}>{x}</li>
-        ))}
-      </ul>
     </div>
   );
 };
