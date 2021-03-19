@@ -1,6 +1,9 @@
+import { EvidenceType } from './evidence';
+
 export interface IGhost {
   name: string;
   evidence: IEvidence;
+  evidence2?: EvidenceType[];
 }
 
 export interface IEvidence {
@@ -14,6 +17,7 @@ export interface IEvidence {
 
 const banshee: IGhost = {
   name: 'Banshee',
+  evidence2: ['emf', 'fingerprints', 'freezing'],
   evidence: {
     emf: true,
     fingerprints: true,
@@ -26,6 +30,7 @@ const banshee: IGhost = {
 
 const demon: IGhost = {
   name: 'Demon',
+  evidence2: ['freezing', 'writing', 'spiritbox'],
   evidence: {
     emf: false,
     fingerprints: false,
@@ -38,6 +43,7 @@ const demon: IGhost = {
 
 const jinn: IGhost = {
   name: 'Jinn',
+  evidence2: ['emf', 'orbs', 'spiritbox'],
   evidence: {
     emf: true,
     fingerprints: false,
@@ -50,6 +56,7 @@ const jinn: IGhost = {
 
 const mare: IGhost = {
   name: 'Mare',
+  evidence2: ['freezing', 'orbs', 'spiritbox'],
   evidence: {
     emf: false,
     fingerprints: false,
@@ -62,6 +69,7 @@ const mare: IGhost = {
 
 const oni: IGhost = {
   name: 'Oni',
+  evidence2: ['emf', 'writing', 'spiritbox'],
   evidence: {
     emf: true,
     fingerprints: false,
@@ -74,6 +82,7 @@ const oni: IGhost = {
 
 const phantom: IGhost = {
   name: 'Phantom',
+  evidence2: ['emf', 'freezing', 'orbs'],
   evidence: {
     emf: true,
     fingerprints: false,
@@ -86,6 +95,7 @@ const phantom: IGhost = {
 
 const poltergeist: IGhost = {
   name: 'Poltergeist',
+  evidence2: ['fingerprints', 'orbs', 'spiritbox'],
   evidence: {
     emf: false,
     fingerprints: true,
@@ -98,6 +108,7 @@ const poltergeist: IGhost = {
 
 const revenant: IGhost = {
   name: 'Revenant',
+  evidence2: ['emf', 'fingerprints', 'writing'],
   evidence: {
     emf: true,
     fingerprints: true,
@@ -110,6 +121,7 @@ const revenant: IGhost = {
 
 const shade: IGhost = {
   name: 'Shade',
+  evidence2: ['emf', 'orbs', 'writing'],
   evidence: {
     emf: true,
     fingerprints: false,
@@ -122,6 +134,7 @@ const shade: IGhost = {
 
 const spirit: IGhost = {
   name: 'Spirit',
+  evidence2: ['fingerprints', 'writing', 'spiritbox'],
   evidence: {
     emf: false,
     fingerprints: true,
@@ -134,6 +147,7 @@ const spirit: IGhost = {
 
 const wraith: IGhost = {
   name: 'Wraith',
+  evidence2: ['fingerprints', 'freezing', 'spiritbox'],
   evidence: {
     emf: false,
     fingerprints: true,
@@ -146,6 +160,7 @@ const wraith: IGhost = {
 
 const yurei: IGhost = {
   name: 'Yurei',
+  evidence2: ['fingerprints', 'orbs', 'writing'],
   evidence: {
     emf: false,
     fingerprints: false,

@@ -3,6 +3,7 @@ import Head from 'next/head';
 import React from 'react';
 import Card from '../components/card/card';
 import { EvidenceSelector } from '../components/evidence';
+import { GhostContainer } from '../components/ghost';
 import Speech from '../components/speech-recognition';
 
 const SinglePlayerPage: React.FC = () => {
@@ -14,7 +15,9 @@ const SinglePlayerPage: React.FC = () => {
       </Head>
       <Grid container>
         <Grid item md={8} xs={12} sm={6}>
-          <Card>Tests</Card>
+          <Card>
+            <GhostContainer />
+          </Card>
         </Grid>
         <Grid
           item

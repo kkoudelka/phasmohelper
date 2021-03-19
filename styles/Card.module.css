@@ -1,4 +1,14 @@
 .card {
   padding: 10px;
   margin: 5px;
+  position: relative;
+}
+
+.disabled {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #202020f2;
 }

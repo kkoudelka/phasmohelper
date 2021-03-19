@@ -1,5 +1,6 @@
-import { EvidenceType } from '../ghosts/evidence';
-import { ghosts, IEvidence, IGhost } from '../ghosts/ghosts';
+import { evidenceList, EvidenceType, IEvidenceCard } from '../ghosts/evidence';
+import { IEvidence, IGhost } from '../ghosts/ghosts';
+import { getAvailableGhosts } from './ghost-helper';
 
 export const isEvidenceAvailable = (
   type: EvidenceType,
@@ -10,39 +11,17 @@ export const isEvidenceAvailable = (
   return res;
 };
 
-export const getAvailableGhosts = (currentEvidence: IEvidence): IGhost[] => {
-  let availableGhosts = ghosts;
+export const isEvidenceChecked = (
+  evidenceType: EvidenceType,
+  currentEvidence: IEvidence,
+): boolean => {
+  return currentEvidence[evidenceType];
+};
 
-  if (currentEvidence.emf) {
-    availableGhosts = availableGhosts.filter(
-      (ghost) => ghost.evidence.emf === true,
-    );
-  }
-  if (currentEvidence.fingerprints) {
-    availableGhosts = availableGhosts.filter(
-      (ghost) => ghost.evidence.fingerprints === true,
-    );
-  }
-  if (currentEvidence.freezing) {
-    availableGhosts = availableGhosts.filter(
-      (ghost) => ghost.evidence.freezing === true,
-    );
-  }
-  if (currentEvidence.orbs) {
-    availableGhosts = availableGhosts.filter(
-      (ghost) => ghost.evidence.orbs === true,
-    );
-  }
-  if (currentEvidence.spiritbox) {
-    availableGhosts = availableGhosts.filter(
-      (ghost) => ghost.evidence.spiritbox === true,
-    );
-  }
-  if (currentEvidence.writing) {
-    availableGhosts = availableGhosts.filter(
-      (ghost) => ghost.evidence.writing === true,
-    );
-  }
+const getEvidenceCardByType = (type: EvidenceType): IEvidenceCard => {
+  return evidenceList.find((evidence) => evidence.type === type);
+};
 
-  return availableGhosts;
+export const getEvidenceForGhost = (ghost: IGhost): IEvidenceCard[] => {
+  return ghost.evidence2.map((x) => getEvidenceCardByType(x));
 };
