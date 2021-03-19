@@ -24,8 +24,6 @@ const SpeechRecogniser: React.FC = () => {
     return <>Browser doesn't support speech recognition</>;
   }
 
-  useEffect(() => {}, []);
-
   const resolveSentence = async (text: string): Promise<void> => {
     if (!text || text.length < 5) return;
 
@@ -62,7 +60,7 @@ const SpeechRecogniser: React.FC = () => {
       enabled
     ) {
       if (finalTranscript) setFinal(finalTranscript);
-      SpeechRecognition.startListening();
+      SpeechRecognition.startListening({ language: 'en' });
     }
   }, [listening]);
 
@@ -74,7 +72,7 @@ const SpeechRecogniser: React.FC = () => {
 
   const handleToggle = () => {
     if (enabled) SpeechRecognition.stopListening();
-    else SpeechRecognition.startListening();
+    else SpeechRecognition.startListening({ language: 'en' });
 
     setEnabled(!enabled);
   };

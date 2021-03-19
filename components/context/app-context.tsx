@@ -6,6 +6,12 @@ export interface IAppContextVals {
   setCurrentEvidence: (evidence: IEvidence) => void;
 }
 
+export interface ISessionDoc {
+  sessionID: string;
+  evidence: IEvidence;
+  ghostName: string;
+}
+
 const defaults: IAppContextVals = {
   currentEvidence: {
     emf: false,
@@ -24,6 +30,10 @@ const AppContextProvider: React.FC<{} | IAppContextVals> = ({ children }) => {
   const [currentEvidence, setCurrentEvidence] = useState(
     defaults.currentEvidence,
   );
+
+  // const handleChangeEvidence = async (currentEvidence: IEvidence) => {
+
+  // }
 
   return (
     <AppContext.Provider value={{ currentEvidence, setCurrentEvidence }}>

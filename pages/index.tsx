@@ -4,8 +4,20 @@ import Head from 'next/head';
 import React from 'react';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+import { getSessionId } from '../src/utils/generator';
+import { useRouter } from 'next/router';
 
 const HomePage: React.FC = () => {
+  const router = useRouter();
+  const abcd = async () => {
+    const { firestore } = firebase;
+    const id = await getSessionId();
+    await firestore().collection('sessions').doc().set({ sessionID: id });
+    router.push(`/session/${id}`);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -31,7 +43,7 @@ const HomePage: React.FC = () => {
             </Link>
           </Grid>
           <Grid item className={styles.btn}>
-            <Button variant="contained" color="primary" disabled>
+            <Button variant="contained" color="primary" onClick={abcd}>
               Create session
             </Button>
           </Grid>
