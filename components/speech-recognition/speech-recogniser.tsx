@@ -7,20 +7,53 @@ import SpeechRecognition, {
 } from 'react-speech-recognition';
 import MicNoneOutlinedIcon from '@material-ui/icons/MicNoneOutlined';
 import MicOffOutlinedIcon from '@material-ui/icons/MicOffOutlined';
+import resolveText from '../../src/wit/client';
+import { useAppContext } from '../../src/hooks';
+import { isEvidenceAvailable } from '../../src/utils/evidence-helper';
 
 const SpeechRecogniser: React.FC = () => {
-  const [final, setFinal] = useState<string>('');
+  const [final, setFinal] = useState<string>(
+    'You can say "I have found Freezing temperatures"',
+  );
   const [enabled, setEnabled] = useState(false);
 
-  const {
-    finalTranscript,
-    transcript,
-    resetTranscript,
-    listening,
-  } = useSpeechRecognition();
+  const { currentEvidence, setCurrentEvidence } = useAppContext();
+
+  const { finalTranscript, transcript, listening } = useSpeechRecognition();
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return <>Browser doesn't support speech recognition</>;
   }
+
+  useEffect(() => {}, []);
+
+  const resolveSentence = async (text: string): Promise<void> => {
+    if (!text || text.length < 5) return;
+
+    const res = await resolveText(text);
+    if (res.intents.length < 1) {
+      setFinal('Not understood');
+      return;
+    }
+    const action = res.intents[0].name;
+
+    if (action === 'change_name') {
+      return;
+    }
+    const evidenceEntity = res.entities['evidence:evidence'];
+    if (!evidenceEntity || evidenceEntity.length < 1) return;
+
+    const evidence = evidenceEntity[0].value;
+
+    if (action === 'new_evidence') {
+      const available = isEvidenceAvailable(evidence, currentEvidence);
+      if (!available) return;
+      setCurrentEvidence({ ...currentEvidence, [evidence]: true });
+    } else if (action === 'remove_evidence') {
+      const canRemove = currentEvidence[evidence];
+      if (!canRemove) return;
+      setCurrentEvidence({ ...currentEvidence, [evidence]: false });
+    }
+  };
 
   useEffect(() => {
     if (
@@ -33,6 +66,12 @@ const SpeechRecogniser: React.FC = () => {
     }
   }, [listening]);
 
+  useEffect(() => {
+    if (finalTranscript && finalTranscript !== final) {
+      resolveSentence(finalTranscript);
+    }
+  }, [finalTranscript]);
+
   const handleToggle = () => {
     if (enabled) SpeechRecognition.stopListening();
     else SpeechRecognition.startListening();
@@ -42,7 +81,7 @@ const SpeechRecogniser: React.FC = () => {
 
   return (
     <div>
-      <Grid container direction="column" alignItems="center">
+      <Grid container direction="column" alignItems="center" spacing={1}>
         <Grid container item direction="row" justify="space-around">
           <Grid item>
             <Typography variant="h6">Speech recognition</Typography>

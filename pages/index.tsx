@@ -31,12 +31,12 @@ const HomePage: React.FC = () => {
             </Link>
           </Grid>
           <Grid item className={styles.btn}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" disabled>
               Create session
             </Button>
           </Grid>
           <Grid item className={styles.btn}>
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" disabled>
               Join session
             </Button>
           </Grid>
