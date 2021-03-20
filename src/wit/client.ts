@@ -1,12 +1,14 @@
 import axios from 'axios';
 import { EvidenceType } from '../ghosts/evidence';
+import { ObjectiveType } from '../ghosts/objectives';
 
 interface IWitResponse {
   text: string;
   intents: IIntent[];
   entities: {
-    'evidence:evidence'?: IEntity[];
-    'name:name'?: IEntity[];
+    'evidence:evidence'?: IEntity<EvidenceType>[];
+    'name:name'?: IEntity<string>[];
+    'objective:objective'?: IEntity<ObjectiveType>[];
   };
 }
 
@@ -16,13 +18,19 @@ interface IIntent {
   confidence: number;
 }
 
-type IntentName = 'change_name' | 'new_evidence' | 'remove_evidence';
+type IntentName =
+  | 'change_name'
+  | 'new_evidence'
+  | 'remove_evidence'
+  | 'complete_objective'
+  | 'remove_objective'
+  | 'add_objective';
 
-interface IEntity {
+interface IEntity<T> {
   id: string;
   name: string;
   body: string;
-  value: EvidenceType;
+  value: T;
 }
 
 const resolveText = async (text: string): Promise<IWitResponse> => {

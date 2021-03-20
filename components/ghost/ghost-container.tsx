@@ -3,11 +3,11 @@ import React from 'react';
 import { GhostItem } from '.';
 import { ghosts } from '../../src/ghosts/ghosts';
 import { useAppContext } from '../../src/hooks';
-import { getAvailableGhosts } from '../../src/utils/ghost-helper';
+import { getAvailableGhosts2 } from '../../src/utils/ghost-helper';
 
 const GhostContainer: React.FC = () => {
-  const { currentEvidence } = useAppContext();
-  const availableGhosts = getAvailableGhosts(currentEvidence);
+  const { mission } = useAppContext();
+  const availableGhosts = getAvailableGhosts2(mission.evidence);
   const notAvailable = ghosts.filter((x) => !availableGhosts.includes(x));
 
   return (

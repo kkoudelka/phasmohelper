@@ -1,29 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/Inbox';
 import { IEvidenceCard } from '../../src/ghosts/evidence';
 import { useAppContext } from '../../src/hooks';
-import { isEvidenceAvailable } from '../../src/utils/evidence-helper';
+import {
+  isEvidenceAvailable,
+  isEvidenceChecked,
+} from '../../src/utils/evidence-helper';
 
 interface IProps {
   evidence: IEvidenceCard;
 }
 
 const EvidenceItem: React.FC<IProps> = ({ evidence }) => {
-  const {
-    currentEvidence,
-    setCurrentEvidence,
-    changeEvidence,
-  } = useAppContext();
+  const { mission, changeEvidence } = useAppContext();
 
-  const isChecked: boolean = currentEvidence[evidence.type];
+  const { evidence: mEvidence } = mission;
 
-  const isAvailable = isEvidenceAvailable(evidence.type, currentEvidence);
+  const isAvailable = isEvidenceAvailable(evidence.type, mEvidence);
 
   const handleToggle = async () => {
-    await changeEvidence({ ...currentEvidence, [evidence.type]: !isChecked });
+    await changeEvidence(evidence.type);
   };
 
   const { icon, name } = evidence;
@@ -31,7 +29,7 @@ const EvidenceItem: React.FC<IProps> = ({ evidence }) => {
   return (
     <ListItem
       button
-      selected={isChecked}
+      selected={isEvidenceChecked(evidence.type, mEvidence)}
       onClick={handleToggle}
       disabled={!isAvailable}
     >

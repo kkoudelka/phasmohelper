@@ -71,6 +71,10 @@ const JoinSession: React.FC = () => {
             helperText={sessionNotFound ? 'Session code not valid' : ''}
             fullWidth
             value={code}
+            onKeyPress={(event) => {
+              if (event.key !== 'Enter') return;
+              handleJoin();
+            }}
             onChange={(event) => handleCodeChange(event.currentTarget.value)}
           />
         </DialogContent>

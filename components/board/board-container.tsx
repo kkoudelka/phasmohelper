@@ -12,12 +12,12 @@ const BoardContainer: React.FC = () => {
   const { sessionDetails } = useAppContext();
   return (
     <Grid container>
-      <Grid item md={8} xs={12} sm={6}>
+      <Grid item md={7} xs={12} sm={6}>
         <Card>
           <GhostContainer />
         </Card>
       </Grid>
-      <Grid item md={4} xs={12} sm={6} container direction="column" spacing={1}>
+      <Grid item md={5} xs={12} sm={6} container direction="column" spacing={1}>
         {sessionDetails && (
           <Grid item>
             <Card>

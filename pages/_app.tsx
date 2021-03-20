@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { AContext } from '../components/context/app-context';
-import FirebaseHoc from '../components/firebase-hoc/firebase-hoc';
 import { MainLayout } from '../components/layout';
 import { ThemeContainer } from '../components/themes';
 import '../styles/globals.css';

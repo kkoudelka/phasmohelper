@@ -9,7 +9,7 @@ import Head from 'next/head';
 
 function SessionPage({ id }) {
   const router = useRouter();
-  const { setSessionDetails, setCurrentEvidence } = useAppContext();
+  const { setSessionDetails, setMission } = useAppContext();
 
   useEffect(() => {
     checkCodeValid();
@@ -30,12 +30,12 @@ function SessionPage({ id }) {
     setSessionDetails({ sessionDocId: doc.id, sessionFriendlyId: id });
 
     doc.ref.onSnapshot((data) => {
-      const a = data.data() as ISessionDoc;
-      if (!a) {
+      const sessionDocument = data.data() as ISessionDoc;
+      if (!sessionDocument) {
         router.push('/');
         return;
       }
-      setCurrentEvidence(a.evidence);
+      setMission(sessionDocument.mission);
     });
   };
 

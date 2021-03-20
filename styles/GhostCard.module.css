@@ -6,3 +6,8 @@
   background-color: #202020 !important;
   min-height: 140px;
 }
+
+.evidenceTitle {
+  height: 45px;
+  text-align: center;
+}

@@ -12,12 +12,14 @@ import { JoinSession } from '../components/join-session';
 
 const HomePage: React.FC = () => {
   const router = useRouter();
-  const abcd = async () => {
+
+  const createSession = async () => {
     const id = await getSessionId();
     const data: ISessionDoc = {
       sessionID: id,
-      evidence: defaults.currentEvidence,
+      mission: defaults.mission,
     };
+    
     await firestore.collection('sessions').doc().set(data);
     router.push(`/session/${id}`);
   };
@@ -47,7 +49,7 @@ const HomePage: React.FC = () => {
             </Link>
           </Grid>
           <Grid item className={styles.btn}>
-            <Button variant="contained" color="primary" onClick={abcd}>
+            <Button variant="contained" color="primary" onClick={createSession}>
               Create session
             </Button>
           </Grid>

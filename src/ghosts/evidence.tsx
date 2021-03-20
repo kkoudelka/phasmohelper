@@ -1,9 +1,9 @@
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
-import PhonelinkRingIcon from '@material-ui/icons/PhonelinkRing';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
 import CameraEnhanceIcon from '@material-ui/icons/CameraEnhance';
 import ForumIcon from '@material-ui/icons/Forum';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import SettingsRemoteIcon from '@material-ui/icons/SettingsRemote';
 
 export type EvidenceType =
   | 'writing'
@@ -21,7 +21,7 @@ export interface IEvidenceCard {
 }
 
 export const evidenceList: IEvidenceCard[] = [
-  { type: 'emf', name: 'EMF 5', icon: <PhonelinkRingIcon /> },
+  { type: 'emf', name: 'EMF level 5', icon: <SettingsRemoteIcon /> },
   { type: 'fingerprints', name: 'Fingerprints', icon: <FingerprintIcon /> },
   { type: 'freezing', name: 'Freezing temperatures', icon: <AcUnitIcon /> },
   { type: 'orbs', name: 'Ghost orbs', icon: <CameraEnhanceIcon /> },

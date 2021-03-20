@@ -10,17 +10,35 @@ import MicOffOutlinedIcon from '@material-ui/icons/MicOffOutlined';
 import resolveText from '../../src/wit/client';
 import { useAppContext } from '../../src/hooks';
 import { isEvidenceAvailable } from '../../src/utils/evidence-helper';
+import { ObjectiveType } from '../../src/ghosts/objectives';
+import { getRandomFromArray } from '../../src/utils/utils';
+
+const thingsYouCanSay = [
+  'I have found Freezing temperatures',
+  'There is EMF level 5',
+  'There are ghost orbs',
+  'We have spirit box',
+  'Ghost responded on spirit box',
+  'Ghost did not respond',
+  "The ghost's name is Thomas Johnson",
+  'Ghost did not write into the book',
+  'We need to use the Crucifix',
+  'We need to prevent a hunt with Crucifix',
+  'There are Freezing temps',
+  "We don't need to use the Salt",
+];
 
 const SpeechRecogniser: React.FC = () => {
   const [final, setFinal] = useState<string>(
-    'You can say "I have found Freezing temperatures"',
+    `You can say "${getRandomFromArray<string>(thingsYouCanSay)}"`,
   );
   const [enabled, setEnabled] = useState(false);
 
   const {
-    currentEvidence,
-    setCurrentEvidence,
     changeEvidence,
+    mission,
+    changeName,
+    changeObjectives,
   } = useAppContext();
 
   const { finalTranscript, transcript, listening } = useSpeechRecognition();
@@ -38,7 +56,31 @@ const SpeechRecogniser: React.FC = () => {
     }
     const action = res.intents[0].name;
 
+    if (action === 'add_objective' || action === 'remove_objective') {
+      const objectiveEntity = res.entities['objective:objective'];
+      if (!objectiveEntity || !objectiveEntity.length) return;
+
+      const objective = objectiveEntity[0].value;
+
+      let objectives: ObjectiveType[] = [];
+
+      if (action === 'add_objective') {
+        if (mission.objectives.includes(objective)) return;
+        objectives = [...mission.objectives, objective];
+      }
+
+      if (action === 'remove_objective') {
+        objectives = mission.objectives.filter((x) => x !== objective);
+      }
+      await changeObjectives(objectives);
+      return;
+    }
     if (action === 'change_name') {
+      const nameEntity = res.entities['name:name'];
+      if (!nameEntity || !nameEntity.length) return;
+
+      const name = nameEntity[0].value;
+      await changeName(name);
       return;
     }
     const evidenceEntity = res.entities['evidence:evidence'];
@@ -47,13 +89,13 @@ const SpeechRecogniser: React.FC = () => {
     const evidence = evidenceEntity[0].value;
 
     if (action === 'new_evidence') {
-      const available = isEvidenceAvailable(evidence, currentEvidence);
+      const available = isEvidenceAvailable(evidence, mission.evidence);
       if (!available) return;
-      await changeEvidence({ ...currentEvidence, [evidence]: true });
+      await changeEvidence(evidence);
     } else if (action === 'remove_evidence') {
-      const canRemove = currentEvidence[evidence];
+      const canRemove = mission.evidence.includes(evidence);
       if (!canRemove) return;
-      await changeEvidence({ ...currentEvidence, [evidence]: false });
+      await changeEvidence(evidence);
     }
   };
 
