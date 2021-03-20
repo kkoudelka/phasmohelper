@@ -160,7 +160,7 @@ const wraith: IGhost = {
 
 const yurei: IGhost = {
   name: 'Yurei',
-  evidence2: ['fingerprints', 'orbs', 'writing'],
+  evidence2: ['freezing', 'orbs', 'writing'],
   evidence: {
     emf: false,
     fingerprints: false,

@@ -1,3 +1,8 @@
 .checked {
   color: #a2ad59;
 }
+
+.ghostCard {
+  background-color: #202020 !important;
+  min-height: 140px;
+}

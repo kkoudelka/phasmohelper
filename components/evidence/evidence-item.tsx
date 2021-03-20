@@ -12,14 +12,18 @@ interface IProps {
 }
 
 const EvidenceItem: React.FC<IProps> = ({ evidence }) => {
-  const { currentEvidence, setCurrentEvidence } = useAppContext();
+  const {
+    currentEvidence,
+    setCurrentEvidence,
+    changeEvidence,
+  } = useAppContext();
 
   const isChecked: boolean = currentEvidence[evidence.type];
 
   const isAvailable = isEvidenceAvailable(evidence.type, currentEvidence);
 
-  const handleToggle = () => {
-    setCurrentEvidence({ ...currentEvidence, [evidence.type]: !isChecked });
+  const handleToggle = async () => {
+    await changeEvidence({ ...currentEvidence, [evidence.type]: !isChecked });
   };
 
   const { icon, name } = evidence;

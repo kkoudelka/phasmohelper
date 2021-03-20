@@ -17,7 +17,11 @@ const SpeechRecogniser: React.FC = () => {
   );
   const [enabled, setEnabled] = useState(false);
 
-  const { currentEvidence, setCurrentEvidence } = useAppContext();
+  const {
+    currentEvidence,
+    setCurrentEvidence,
+    changeEvidence,
+  } = useAppContext();
 
   const { finalTranscript, transcript, listening } = useSpeechRecognition();
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
@@ -45,11 +49,11 @@ const SpeechRecogniser: React.FC = () => {
     if (action === 'new_evidence') {
       const available = isEvidenceAvailable(evidence, currentEvidence);
       if (!available) return;
-      setCurrentEvidence({ ...currentEvidence, [evidence]: true });
+      await changeEvidence({ ...currentEvidence, [evidence]: true });
     } else if (action === 'remove_evidence') {
       const canRemove = currentEvidence[evidence];
       if (!canRemove) return;
-      setCurrentEvidence({ ...currentEvidence, [evidence]: false });
+      await changeEvidence({ ...currentEvidence, [evidence]: false });
     }
   };
 

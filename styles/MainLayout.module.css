@@ -1,0 +1,12 @@
+.root {
+  display: 'flex';
+}
+
+.grow {
+  flex-grow: 1;
+}
+
+.appBar {
+  width: '100%';
+  z-index: 10;
+}

@@ -4,17 +4,21 @@ import Head from 'next/head';
 import React from 'react';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
 import { getSessionId } from '../src/utils/generator';
 import { useRouter } from 'next/router';
+import { firestore } from '../src/fbase/fbase';
+import { defaults, ISessionDoc } from '../components/context/app-context';
+import { JoinSession } from '../components/join-session';
 
 const HomePage: React.FC = () => {
   const router = useRouter();
   const abcd = async () => {
-    const { firestore } = firebase;
     const id = await getSessionId();
-    await firestore().collection('sessions').doc().set({ sessionID: id });
+    const data: ISessionDoc = {
+      sessionID: id,
+      evidence: defaults.currentEvidence,
+    };
+    await firestore.collection('sessions').doc().set(data);
     router.push(`/session/${id}`);
   };
 
@@ -48,9 +52,7 @@ const HomePage: React.FC = () => {
             </Button>
           </Grid>
           <Grid item className={styles.btn}>
-            <Button variant="contained" color="primary" disabled>
-              Join session
-            </Button>
+            <JoinSession />
           </Grid>
         </Grid>
       </Grid>

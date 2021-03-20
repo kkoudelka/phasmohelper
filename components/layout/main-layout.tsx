@@ -4,30 +4,16 @@ import {
   createStyles,
   CssBaseline,
   AppBar,
-  IconButton,
-  Link,
   Toolbar,
   Typography,
 } from '@material-ui/core';
+import styles from '../../styles/MainLayout.module.css';
 import React from 'react';
 import { getTheme } from '../themes';
-
-const drawerWidth = 180;
+import Link from 'next/link';
 
 const useStyles = makeStyles((theme: Theme = getTheme()) =>
   createStyles({
-    root: {
-      display: 'flex',
-    },
-    grow: {
-      flexGrow: 1,
-    },
-    appBar: {
-      // width: `calc(100% - ${drawerWidth}px)`,
-      width: '100%',
-      marginLeft: drawerWidth,
-      zIndex: theme.zIndex.drawer + 1,
-    },
     toolbar: theme.mixins.toolbar,
     content: {
       flexGrow: 1,
@@ -38,17 +24,21 @@ const useStyles = makeStyles((theme: Theme = getTheme()) =>
 );
 
 const MainLayout: React.FC = ({ children }) => {
-  const { content, toolbar, root, grow, appBar } = useStyles();
+  const { content, toolbar } = useStyles();
 
   return (
-    <div className={root}>
+    <div className={styles.root}>
       <CssBaseline />
-      <AppBar position="fixed" className={appBar}>
+      <AppBar position="fixed" className={styles.appBar}>
         <Toolbar>
-          <Typography variant="h6" noWrap>
-            Phasmophobia Cheatsheet
-          </Typography>
-          <div className={grow} />
+          <Link href="/">
+            <a>
+              <Typography variant="h6" noWrap>
+                Phasmophobia Cheatsheet
+              </Typography>
+            </a>
+          </Link>
+          <div className={styles.grow} />
         </Toolbar>
       </AppBar>
       <main className={content}>

@@ -9,6 +9,7 @@ const GhostContainer: React.FC = () => {
   const { currentEvidence } = useAppContext();
   const availableGhosts = getAvailableGhosts(currentEvidence);
   const notAvailable = ghosts.filter((x) => !availableGhosts.includes(x));
+
   return (
     <>
       <Grid container>
