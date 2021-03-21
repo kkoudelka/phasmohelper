@@ -35,7 +35,7 @@ export interface IObjective {
 export const objectives: IObjective[] = [
   {
     type: 'candle',
-    name: 'Detect a Ghost presence with a Candle',
+    name: 'Get a Ghost to blow out a Candle',
     icon: <FireplaceIcon />,
   },
   {

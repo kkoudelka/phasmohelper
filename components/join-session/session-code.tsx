@@ -11,7 +11,7 @@ const SessionCode: React.FC = () => {
     isCopied,
     setCopied,
   ] = useClipboard(
-    `https://phasmophobia-cheatsheet.vercel.app/session/${sessionDetails?.sessionFriendlyId}`,
+    `https://phasmohelper.app/session/${sessionDetails?.sessionFriendlyId}`,
     { successDuration: 5000 },
   );
   return (
