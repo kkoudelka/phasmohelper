@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { EvidenceType } from '../ghosts/evidence';
 import { ObjectiveType } from '../ghosts/objectives';
+import { DifficultyType } from '../utils/evidence-helper';
+import { SongType } from '../utils/song-helper';
 
 interface IWitResponse {
   text: string;
@@ -9,6 +11,8 @@ interface IWitResponse {
     'evidence:evidence'?: IEntity<EvidenceType>[];
     'name:name'?: IEntity<string>[];
     'objective:objective'?: IEntity<ObjectiveType>[];
+    'song:song'?: IEntity<SongType>[];
+    'difficulty:difficulty'?: IEntity<DifficultyType>[];
   };
 }
 
@@ -24,7 +28,12 @@ type IntentName =
   | 'remove_evidence'
   | 'complete_objective'
   | 'remove_objective'
-  | 'add_objective';
+  | 'add_objective'
+  | 'play_song'
+  | 'stop_song'
+  | 'start_hunt'
+  | 'stop_hunt'
+  | 'change_difficulty';
 
 interface IEntity<T> {
   id: string;

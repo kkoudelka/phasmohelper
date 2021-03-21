@@ -3,12 +3,14 @@ import { IGhost } from '../ghosts/ghosts';
 import { IObjective, objectives, ObjectiveType } from '../ghosts/objectives';
 import { getAvailableGhosts2 } from './ghost-helper';
 
+export type DifficultyType = 'amateur' | 'intermediate' | 'professional';
+
 export const isEvidenceAvailable = (
   type: EvidenceType,
   currentEvidence: EvidenceType[],
 ): boolean => {
   const ghosts = getAvailableGhosts2(currentEvidence);
-  const res = ghosts.some((x) => x.evidence[type] === true);
+  const res = ghosts.some((x) => x.evidence2.includes(type) === true);
   return res;
 };
 

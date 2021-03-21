@@ -3,7 +3,11 @@ import { firestore } from '../../src/fbase/fbase';
 import { EvidenceType } from '../../src/ghosts/evidence';
 import { IEvidence } from '../../src/ghosts/ghosts';
 import { ObjectiveType } from '../../src/ghosts/objectives';
-import { isEvidenceAvailable } from '../../src/utils/evidence-helper';
+import {
+  DifficultyType,
+  isEvidenceAvailable,
+} from '../../src/utils/evidence-helper';
+import { SongType } from '../../src/utils/song-helper';
 
 export interface IAppContextVals {
   changeEvidence: (evidence: EvidenceType) => Promise<void>;
@@ -13,12 +17,18 @@ export interface IAppContextVals {
   mission: IMission;
   changeName: (name: string) => Promise<void>;
   changeObjectives: (objectives: ObjectiveType[]) => Promise<void>;
+  changeSong: (song: SongType) => Promise<void>;
+  setHunting: (hunting: boolean) => Promise<void>;
+  setDifficulty: (difficulty: DifficultyType) => Promise<void>;
 }
 
 export interface IMission {
   evidence: EvidenceType[];
   objectives: ObjectiveType[];
   ghostName: string;
+  difficulty: DifficultyType;
+  song: SongType;
+  hunting: boolean;
 }
 
 interface ISession {
@@ -40,10 +50,16 @@ export const defaults: IAppContextVals = {
     evidence: [],
     objectives: ['ghost-type'],
     ghostName: '',
+    difficulty: 'amateur',
+    song: 'none',
+    hunting: false,
   },
   setMission: null,
   changeName: null,
   changeObjectives: null,
+  changeSong: null,
+  setHunting: null,
+  setDifficulty: null,
 };
 
 export const AppContext = createContext<IAppContextVals>(defaults);
@@ -89,6 +105,18 @@ const AppContextProvider: React.FC<{} | IAppContextVals> = ({ children }) => {
     await handleChangeMission({ ...mission, objectives });
   };
 
+  const changeSong = async (song: SongType) => {
+    await handleChangeMission({ ...mission, song });
+  };
+
+  const setHunting = async (hunting: boolean) => {
+    await handleChangeMission({ ...mission, hunting });
+  };
+
+  const setDifficulty = async (difficulty: DifficultyType) => {
+    await handleChangeMission({ ...mission, difficulty });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -99,6 +127,9 @@ const AppContextProvider: React.FC<{} | IAppContextVals> = ({ children }) => {
         setMission,
         changeName,
         changeObjectives,
+        changeSong,
+        setHunting,
+        setDifficulty,
       }}
     >
       {children}

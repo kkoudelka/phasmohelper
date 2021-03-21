@@ -12,6 +12,8 @@ import { useAppContext } from '../../src/hooks';
 import { isEvidenceAvailable } from '../../src/utils/evidence-helper';
 import { ObjectiveType } from '../../src/ghosts/objectives';
 import { getRandomFromArray } from '../../src/utils/utils';
+import { KeyboardReturnOutlined } from '@material-ui/icons';
+import useSound from 'use-sound';
 
 const thingsYouCanSay = [
   'I have found Freezing temperatures',
@@ -29,6 +31,9 @@ const thingsYouCanSay = [
 ];
 
 const SpeechRecogniser: React.FC = () => {
+  const [playMute] = useSound('/sounds/mute.wav', { volume: 0.5 });
+  const [playUnmute] = useSound('/sounds/unmute.wav', { volume: 0.5 });
+
   const [final, setFinal] = useState<string>(
     `You can say "${getRandomFromArray<string>(thingsYouCanSay)}"`,
   );
@@ -39,9 +44,13 @@ const SpeechRecogniser: React.FC = () => {
     mission,
     changeName,
     changeObjectives,
+    changeSong,
+    setHunting,
+    setDifficulty,
   } = useAppContext();
 
   const { finalTranscript, transcript, listening } = useSpeechRecognition();
+
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
     return <>Browser doesn't support speech recognition</>;
   }
@@ -55,6 +64,32 @@ const SpeechRecogniser: React.FC = () => {
       return;
     }
     const action = res.intents[0].name;
+
+    if (action === 'start_hunt' || action === 'stop_hunt') {
+      await setHunting(action === 'start_hunt');
+      return;
+    }
+
+    if (action === 'change_difficulty') {
+      const difficultyEntity = res.entities['difficulty:difficulty'];
+      if (!difficultyEntity || !difficultyEntity.length) return;
+
+      const difficulty = difficultyEntity[0].value;
+      await setDifficulty(difficulty);
+      return;
+    }
+
+    if (action === 'stop_song') {
+      await changeSong('none');
+    }
+
+    if (action === 'play_song') {
+      const songEntity = res.entities['song:song'];
+      if (!songEntity || !songEntity.length) return;
+      const song = songEntity[0].value;
+      await changeSong(song);
+      return;
+    }
 
     if (action === 'add_objective' || action === 'remove_objective') {
       const objectiveEntity = res.entities['objective:objective'];
@@ -117,8 +152,13 @@ const SpeechRecogniser: React.FC = () => {
   }, [finalTranscript]);
 
   const handleToggle = () => {
-    if (enabled) SpeechRecognition.stopListening();
-    else SpeechRecognition.startListening({ language: 'en' });
+    if (enabled) {
+      playMute();
+      SpeechRecognition.stopListening();
+    } else {
+      playUnmute();
+      SpeechRecognition.startListening({ language: 'en' });
+    }
 
     setEnabled(!enabled);
   };

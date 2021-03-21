@@ -6,10 +6,12 @@ import { BoardContainer } from '../../components/board';
 import { ISessionDoc } from '../../components/context/app-context';
 import { useAppContext } from '../../src/hooks';
 import Head from 'next/head';
+import { useSnackbar } from 'notistack';
 
 function SessionPage({ id }) {
   const router = useRouter();
   const { setSessionDetails, setMission } = useAppContext();
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     checkCodeValid();
@@ -23,6 +25,9 @@ function SessionPage({ id }) {
       .get();
     const doc = res.docs[0];
     if (!doc?.exists ?? false) {
+      enqueueSnackbar('This session no longer exists', {
+        variant: 'error',
+      });
       await router.push('/');
       return;
     }

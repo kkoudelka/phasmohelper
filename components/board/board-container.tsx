@@ -7,9 +7,11 @@ import { GhostContainer } from '../ghost';
 import { SessionCode } from '../join-session';
 import { useAppContext } from '../../src/hooks';
 import { MissionBoard } from '../mission-board';
+import { SongPlayer } from '../player';
+import { Fade } from '@material-ui/core';
 
 const BoardContainer: React.FC = () => {
-  const { sessionDetails } = useAppContext();
+  const { sessionDetails, mission } = useAppContext();
   return (
     <Grid container>
       <Grid item md={7} xs={12} sm={6}>
@@ -40,6 +42,13 @@ const BoardContainer: React.FC = () => {
             <MissionBoard />
           </Card>
         </Grid>
+        <Fade in={mission.song !== 'none'}>
+          <Grid item>
+            <Card>
+              <SongPlayer />
+            </Card>
+          </Grid>
+        </Fade>
       </Grid>
     </Grid>
   );
