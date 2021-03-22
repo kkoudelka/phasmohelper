@@ -47,8 +47,7 @@ function SessionPage({ id }) {
   return (
     <>
       <Head>
-        <title>Multiplayer session | Phasmophobia Cheatsheet</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Multiplayer session | PhasmoHelper</title>
       </Head>
       <BoardContainer />
     </>

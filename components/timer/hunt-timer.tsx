@@ -3,7 +3,11 @@ import React, { useEffect } from 'react';
 import { useTimer } from 'use-timer';
 import { TimerDisplay } from '.';
 import { useAppContext } from '../../src/hooks';
-import { IPublicProps } from '../../src/utils/exps';
+import {
+  getPublicProps,
+  IPublicProps,
+  updatePublicProps,
+} from '../../src/utils/exps';
 
 const HuntTimer: React.FC = () => {
   const { mission, setHunting } = useAppContext();
@@ -14,19 +18,19 @@ const HuntTimer: React.FC = () => {
     await setHunting(false);
 
     const game: IPublicProps = {
-      ...document['game'],
+      ...getPublicProps(),
       gamePhase: 'Investigating',
       huntRemainingTime: 0,
     };
-    document['game'] = game;
+    updatePublicProps(game);
   };
 
   const changeGlobalTime = (time: number) => {
     const game: IPublicProps = {
-      ...document['game'],
+      ...getPublicProps(),
       huntRemainingTime: time,
     };
-    document['game'] = game;
+    updatePublicProps(game);
   };
 
   const maxTime =
@@ -77,10 +81,10 @@ const HuntTimer: React.FC = () => {
         break;
     }
     const game: IPublicProps = {
-      ...document['game'],
+      ...getPublicProps(),
       gamePhase: 'Hunt',
     };
-    document['game'] = game;
+    updatePublicProps(game);
   };
 
   useEffect(() => {

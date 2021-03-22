@@ -34,7 +34,7 @@ const MainLayout: React.FC = ({ children }) => {
           <Link href="/">
             <a>
               <Typography variant="h6" noWrap>
-                Phasmophobia Cheatsheet
+                PhasmoHelper
               </Typography>
             </a>
           </Link>

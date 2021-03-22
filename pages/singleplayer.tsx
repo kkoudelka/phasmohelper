@@ -14,8 +14,7 @@ const SinglePlayerPage: React.FC = () => {
   return (
     <div>
       <Head>
-        <title>Singleplayer | Phasmophobia Cheatsheet</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Singleplayer | PhasmoHelper</title>
       </Head>
       <BoardContainer />
     </div>

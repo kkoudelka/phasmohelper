@@ -19,7 +19,7 @@ const HomePage: React.FC = () => {
       sessionID: id,
       mission: defaults.mission,
     };
-    
+
     await firestore.collection('sessions').doc().set(data);
     router.push(`/session/${id}`);
   };
@@ -27,12 +27,11 @@ const HomePage: React.FC = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Phasmophobia Cheatsheet</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>Home | PhasmoHelper</title>
       </Head>
       <Grid container direction="column" justify="center" alignItems="center">
         <Grid item>
-          <Typography variant="h4">Phasmophobia cheatsheet</Typography>
+          <Typography variant="h4">PhasmoHelper</Typography>
         </Grid>
         <Grid
           item
