@@ -32,7 +32,7 @@ export const getEvidenceOccurances = (
 
   count = count.map((x) => ({
     ...x,
-    probability: getPercentageBetween(0, evidence.length, x.count),
+    probability: Math.round(getPercentageBetween(0, evidence.length, x.count)),
   }));
 
   return count;

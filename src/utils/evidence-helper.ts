@@ -51,12 +51,24 @@ export const getTips = (evidence: EvidenceType[]): ITipCard[] => {
 
     const mostFrequent = getEvidenceOccurances(availableEvidence);
 
-    tips.push({
-      icon: getEvidenceCardByType(mostFrequent[0].type).icon,
-      text: `Most frequent evidence among possible ghosts: ${
-        getEvidenceCardByType(mostFrequent[0].type).name
-      } (${mostFrequent[0].probability}%)`,
-    });
+    const prob = mostFrequent[0].probability;
+    const mostProb = mostFrequent.filter((x) => x.probability === prob);
+
+    if (mostProb.length > 1) {
+      const cards = mostProb.map((x) => getEvidenceCardByType(x.type));
+      tips.push({
+        text: `Most frequent evidence among possible ghosts: ${cards
+          .map((x) => x.name)
+          .join(', ')}`,
+      });
+    } else {
+      tips.push({
+        icon: getEvidenceCardByType(mostFrequent[0].type).icon,
+        text: `Most frequent evidence among possible ghosts: ${
+          getEvidenceCardByType(mostFrequent[0].type).name
+        } (${mostFrequent[0].probability}%)`,
+      });
+    }
   }
 
   return tips;
