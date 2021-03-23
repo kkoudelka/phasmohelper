@@ -49,6 +49,14 @@ const MyApp = ({ Component, pageProps }) => {
           content="/favicons/browserconfig.xml"
         />
         <meta name="theme-color" content="#ffffff" />
+        <meta
+          name="description"
+          content="PhasmoHelper is a companion app assisting players to keep track of the evidence and objectives in game Phasmophobia."
+        />
+        <meta
+          name="keywords"
+          content="Phasmophobia, PhasmoHelper, Phasmo, Evidence journal, Companion app, Web app,  Evidence list"
+        />
       </Head>
       <AContext.Provider>
         <SnackbarProvider>

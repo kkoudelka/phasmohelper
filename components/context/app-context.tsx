@@ -76,7 +76,7 @@ const AppContextProvider: React.FC<{} | IAppContextVals> = ({ children }) => {
       const doc = firestore
         .collection('sessions')
         .doc(sessionDetails.sessionDocId);
-      await doc.update({ mission });
+      await doc.update({ mission, lastUpdate: new Date() });
     }
   };
 
