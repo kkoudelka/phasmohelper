@@ -12,6 +12,7 @@ export const getPercentageBetween = (min: number, max: number, alpha: number) =>
 interface IEvidenceCount {
   type: EvidenceType;
   count: number;
+  probability?: number;
 }
 
 export const getEvidenceOccurances = (
@@ -28,6 +29,11 @@ export const getEvidenceOccurances = (
   });
 
   count.sort((a, b) => (a.count < b.count ? 1 : -1));
+
+  count = count.map((x) => ({
+    ...x,
+    probability: getPercentageBetween(0, evidence.length, x.count),
+  }));
 
   return count;
 };

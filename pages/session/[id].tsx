@@ -45,12 +45,12 @@ function SessionPage({ id }) {
   };
 
   return (
-    <>
+    <div>
       <Head>
         <title>Multiplayer session | PhasmoHelper</title>
       </Head>
       <BoardContainer />
-    </>
+    </div>
   );
 }
 

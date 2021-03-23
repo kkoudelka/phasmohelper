@@ -15,18 +15,16 @@ const SessionCode: React.FC = () => {
     { successDuration: 5000 },
   );
   return (
-    <>
-      <a>
-        <Typography variant="h6" onClick={setCopied}>
-          Share this code with others:{' '}
-          <Tooltip open={isCopied} title="Link copied to clipboard!">
-            <span className={styles.code}>
-              {sessionDetails?.sessionFriendlyId}
-            </span>
-          </Tooltip>
-        </Typography>
-      </a>
-    </>
+    <a>
+      <Typography variant="h6" onClick={setCopied}>
+        Share this code with others:{' '}
+        <Tooltip open={isCopied} title="Link copied to clipboard!">
+          <span className={styles.code}>
+            {sessionDetails?.sessionFriendlyId}
+          </span>
+        </Tooltip>
+      </Typography>
+    </a>
   );
 };
 

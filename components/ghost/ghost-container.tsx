@@ -11,20 +11,18 @@ const GhostContainer: React.FC = () => {
   const notAvailable = ghosts.filter((x) => !availableGhosts.includes(x));
 
   return (
-    <>
-      <Grid container>
-        {availableGhosts.map((x, key) => (
-          <Grid item key={`ghost-card-${key}`} xs={12} md={4}>
-            <GhostItem ghost={x} />
-          </Grid>
-        ))}
-        {notAvailable.map((x, key) => (
-          <Grid item key={`ghost-card-${key}`} xs={12} md={4}>
-            <GhostItem ghost={x} />
-          </Grid>
-        ))}
-      </Grid>
-    </>
+    <Grid container>
+      {availableGhosts.map((x, key) => (
+        <Grid item key={`ghost-card-${key}`} xs={12} md={4}>
+          <GhostItem ghost={x} />
+        </Grid>
+      ))}
+      {notAvailable.map((x, key) => (
+        <Grid item key={`ghost-card-${key}`} xs={12} md={4}>
+          <GhostItem ghost={x} />
+        </Grid>
+      ))}
+    </Grid>
   );
 };
 

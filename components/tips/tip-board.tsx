@@ -21,8 +21,8 @@ const TipBoard: React.FC = () => {
   const tips = getTips(evidence);
 
   return (
-    <>
-      <Fade in={tips.length > 0} unmountOnExit>
+    <Fade in={tips.length > 0} unmountOnExit>
+      <div>
         <Card>
           <Typography variant="h6">Tips</Typography>
           <List component="nav">
@@ -34,8 +34,8 @@ const TipBoard: React.FC = () => {
             ))}
           </List>
         </Card>
-      </Fade>
-    </>
+      </div>
+    </Fade>
   );
 };
 

@@ -10,13 +10,11 @@ const ObjectiveContainer: React.FC = () => {
 
   const objs = objectives.map((x) => getObjective(x)).filter((x) => x !== null);
   return (
-    <>
-      <List component="nav">
-        {objs.map((objective, key) => (
-          <ObjectiveItem key={`objective-${key}`} objective={objective} />
-        ))}
-      </List>
-    </>
+    <List component="nav">
+      {objs.map((objective, key) => (
+        <ObjectiveItem key={`objective-${key}`} objective={objective} />
+      ))}
+    </List>
   );
 };
 

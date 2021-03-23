@@ -44,20 +44,20 @@ export const getTips = (evidence: EvidenceType[]): ITipCard[] => {
     return [{ text: 'Find at least one piece of evidence' }];
   }
 
-  const availableEvidence: EvidenceType[] = []
-    .concat(...availableG.map((x) => x.evidence2))
-    .filter((x) => !evidence.includes(x));
+  if (evidence.length === 1) {
+    const availableEvidence: EvidenceType[] = []
+      .concat(...availableG.map((x) => x.evidence2))
+      .filter((x) => !evidence.includes(x));
 
-  console.log(availableEvidence);
+    const mostFrequent = getEvidenceOccurances(availableEvidence);
 
-  const mostFrequent = getEvidenceOccurances(availableEvidence);
-
-  tips.push({
-    icon: getEvidenceCardByType(mostFrequent[0].type).icon,
-    text: `Most frequent evidence among possible ghosts: ${
-      getEvidenceCardByType(mostFrequent[0].type).name
-    }`,
-  });
+    tips.push({
+      icon: getEvidenceCardByType(mostFrequent[0].type).icon,
+      text: `Most frequent evidence among possible ghosts: ${
+        getEvidenceCardByType(mostFrequent[0].type).name
+      } (${mostFrequent[0].probability}%)`,
+    });
+  }
 
   return tips;
 };
