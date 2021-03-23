@@ -26,14 +26,12 @@ const GhostName: React.FC = () => {
   };
 
   return (
-    <>
-      <TextField
-        label="Ghost name"
-        fullWidth
-        value={gName}
-        onChange={(event) => handleChange(event.currentTarget.value)}
-      />
-    </>
+    <TextField
+      label="Ghost name"
+      fullWidth
+      value={gName}
+      onChange={(event) => handleChange(event.currentTarget.value)}
+    />
   );
 };
 

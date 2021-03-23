@@ -55,7 +55,7 @@ const MyApp = ({ Component, pageProps }) => {
         />
         <meta
           name="keywords"
-          content="Phasmophobia, PhasmoHelper, Phasmo, Evidence journal, Companion app, Web app,  Evidence list"
+          content="Phasmophobia, PhasmoHelper, Phasmo, Evidence journal, Companion app, Web app, Evidence list"
         />
       </Head>
       <AContext.Provider>

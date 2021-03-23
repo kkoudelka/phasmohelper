@@ -29,29 +29,21 @@ const GhostItem: React.FC<IProps> = ({ ghost }) => {
   const isAvailable = isGhostAvailable(ghost, mission.evidence);
 
   return (
-    <>
-      <Card disabled={!isAvailable} className={styles.ghostCard}>
-        <Grid container direction="column" spacing={2} alignItems="center">
-          <Grid item>
-            <Typography variant="h6">{name}</Typography>
-          </Grid>
-          <Grid item container direction="row" justify="space-between">
-            {currentEvidence.map((e, key) => (
-              <GhostEvidence
-                key={`ghost-evidence-${name}-${key}`}
-                evidence={e}
-              />
-            ))}
-            {missingEvidence.map((e, key) => (
-              <GhostEvidence
-                key={`ghost-evidence-${name}-${key}`}
-                evidence={e}
-              />
-            ))}
-          </Grid>
+    <Card disabled={!isAvailable} className={styles.ghostCard}>
+      <Grid container direction="column" spacing={2} alignItems="center">
+        <Grid item>
+          <Typography variant="h6">{name}</Typography>
         </Grid>
-      </Card>
-    </>
+        <Grid item container direction="row" justify="space-between">
+          {currentEvidence.map((e, key) => (
+            <GhostEvidence key={`ghost-evidence-${name}-${key}`} evidence={e} />
+          ))}
+          {missingEvidence.map((e, key) => (
+            <GhostEvidence key={`ghost-evidence-${name}-${key}`} evidence={e} />
+          ))}
+        </Grid>
+      </Grid>
+    </Card>
   );
 };
 

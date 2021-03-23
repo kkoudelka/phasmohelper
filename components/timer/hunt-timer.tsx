@@ -107,16 +107,14 @@ const HuntTimer: React.FC = () => {
       : timeHard;
 
   return (
-    <>
-      <Fade in={hunting} unmountOnExit>
-        <TimerDisplay
-          min={0}
-          max={maxTime}
-          currentValue={time}
-          text="Hunting: "
-        />
-      </Fade>
-    </>
+    <Fade in={hunting} unmountOnExit>
+      <TimerDisplay
+        min={0}
+        max={maxTime}
+        currentValue={time}
+        text="Hunting: "
+      />
+    </Fade>
   );
 };
 

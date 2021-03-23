@@ -6,7 +6,7 @@ import { HuntTimer } from '../timer';
 
 const MissionBoard: React.FC = () => {
   return (
-    <>
+    <div>
       <Typography variant="h6">Mission board</Typography>
       <Grid container direction="row" spacing={1}>
         <Grid item xs={12} md={4} container direction="column" spacing={1}>
@@ -24,7 +24,7 @@ const MissionBoard: React.FC = () => {
           <ObjectivesContainer />
         </Grid>
       </Grid>
-    </>
+    </div>
   );
 };
 

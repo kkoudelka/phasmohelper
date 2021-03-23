@@ -8,11 +8,7 @@ const ThemeContainer: React.FunctionComponent<{}> = ({ children }) => {
 
   const theme = getTheme(true);
 
-  return (
-    <>
-      <ThemeProvider theme={theme}>{children}</ThemeProvider>
-    </>
-  );
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 };
 
 export default ThemeContainer;
