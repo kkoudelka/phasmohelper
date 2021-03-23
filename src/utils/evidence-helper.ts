@@ -57,14 +57,12 @@ export const getTips = (evidence: EvidenceType[]): ITipCard[] => {
     if (mostProb.length > 1) {
       const cards = mostProb.map((x) => getEvidenceCardByType(x.type));
       tips.push({
-        text: `Most frequent evidence among possible ghosts: ${cards
-          .map((x) => x.name)
-          .join(', ')}`,
+        text: `Try looking for: ${cards.map((x) => x.name).join(', ')}`,
       });
     } else {
       tips.push({
         icon: getEvidenceCardByType(mostFrequent[0].type).icon,
-        text: `Most frequent evidence among possible ghosts: ${
+        text: `Try looking for: ${
           getEvidenceCardByType(mostFrequent[0].type).name
         } (${mostFrequent[0].probability}%)`,
       });
