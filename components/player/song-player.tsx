@@ -45,7 +45,7 @@ const SongPlayer: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div>
       <Head>
         <link rel="stylesheet" href="https://cdn.plyr.io/3.6.4/plyr.css" />
       </Head>
@@ -55,7 +55,7 @@ const SongPlayer: React.FC = () => {
           <source src={`/sounds/songs/${mission.song}.mp3`} type="audio/mp3" />
         )}
       </audio>
-    </>
+    </div>
   );
 };
 

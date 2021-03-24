@@ -52,7 +52,7 @@ const SpeechRecogniser: React.FC = () => {
   const { finalTranscript, transcript, listening } = useSpeechRecognition();
 
   if (!SpeechRecognition.browserSupportsSpeechRecognition()) {
-    return <>Browser doesn't support speech recognition</>;
+    return <div>Browser doesn't support speech recognition</div>;
   }
 
   const resolveSentence = async (text: string): Promise<void> => {

@@ -6,11 +6,7 @@ const DifficultyDisplay: React.FC = () => {
   const { mission } = useAppContext();
   const { difficulty } = mission;
 
-  return (
-    <>
-      <Typography variant="body1">Difficulty: {difficulty}</Typography>
-    </>
-  );
+  return <Typography variant="body1">Difficulty: {difficulty}</Typography>;
 };
 
 export default DifficultyDisplay;
