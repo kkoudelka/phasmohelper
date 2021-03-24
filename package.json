@@ -17,6 +17,7 @@
     "discord.js": "^12.5.1",
     "firebase": "^8.3.1",
     "fs": "^0.0.1-security",
+    "moment": "^2.29.1",
     "net": "^1.0.2",
     "next": "10.0.9",
     "next-pwa": "^5.0.6",

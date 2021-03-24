@@ -20,6 +20,7 @@ export interface IAppContextVals {
   changeSong: (song: SongType) => Promise<void>;
   setHunting: (hunting: boolean) => Promise<void>;
   setDifficulty: (difficulty: DifficultyType) => Promise<void>;
+  reset: () => Promise<void>;
 }
 
 export interface IMission {
@@ -29,6 +30,7 @@ export interface IMission {
   difficulty: DifficultyType;
   song: SongType;
   hunting: boolean;
+  start: Date;
 }
 
 interface ISession {
@@ -53,6 +55,7 @@ export const defaults: IAppContextVals = {
     difficulty: 'amateur',
     song: 'none',
     hunting: false,
+    start: new Date(),
   },
   setMission: null,
   changeName: null,
@@ -60,6 +63,7 @@ export const defaults: IAppContextVals = {
   changeSong: null,
   setHunting: null,
   setDifficulty: null,
+  reset: null,
 };
 
 export const AppContext = createContext<IAppContextVals>(defaults);
@@ -117,6 +121,10 @@ const AppContextProvider: React.FC<{} | IAppContextVals> = ({ children }) => {
     await handleChangeMission({ ...mission, difficulty });
   };
 
+  const reset = async () => {
+    await handleChangeMission({ ...defaults.mission, start: new Date() });
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -130,6 +138,7 @@ const AppContextProvider: React.FC<{} | IAppContextVals> = ({ children }) => {
         changeSong,
         setHunting,
         setDifficulty,
+        reset,
       }}
     >
       {children}
