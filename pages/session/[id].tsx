@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { firestore } from '../../src/fbase/fbase';
 import { BoardContainer } from '../../components/board';
-import { ISessionDoc } from '../../components/context/app-context';
+import { IMission, ISessionDoc } from '../../components/context/app-context';
 import { useAppContext } from '../../src/hooks';
 import Head from 'next/head';
 import { useSnackbar } from 'notistack';
@@ -40,7 +40,11 @@ function SessionPage({ id }) {
         router.push('/');
         return;
       }
-      setMission(sessionDocument.mission);
+      const mission: IMission = {
+        ...sessionDocument.mission,
+        start: (sessionDocument.mission.start as any).toDate() ?? new Date(),
+      };
+      setMission(mission);
     });
   };
 
