@@ -31,7 +31,9 @@ const HomePage: React.FC = () => {
       </Head>
       <Grid container direction="column" justify="center" alignItems="center">
         <Grid item>
-          <Typography variant="h4">PhasmoHelper</Typography>
+          <Typography variant="h4" component="h1">
+            PhasmoHelper
+          </Typography>
         </Grid>
         <Grid
           item

@@ -25,7 +25,12 @@ const BoardContainer: React.FC = () => {
           <TipBoard />
         </Grid>
       </Grid>
-      <Grid item md={5} xs={12} sm={6} container direction="column" spacing={1}>
+      <Grid item md={5} xs={12} sm={6} container direction="column">
+        <Grid item>
+          <Card>
+            <MissionBoard />
+          </Card>
+        </Grid>
         {sessionDetails && (
           <Grid item>
             <Card>
@@ -41,11 +46,6 @@ const BoardContainer: React.FC = () => {
         <Grid item>
           <Card>
             <EvidenceSelector />
-          </Card>
-        </Grid>
-        <Grid item>
-          <Card>
-            <MissionBoard />
           </Card>
         </Grid>
         <Fade in={mission.song !== 'none'}>
