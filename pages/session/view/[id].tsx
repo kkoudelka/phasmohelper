@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next';
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { firestore } from '../../src/fbase/fbase';
-import { BoardContainer } from '../../components/board';
-import { IMission, ISessionDoc } from '../../components/context/app-context';
-import { useAppContext } from '../../src/hooks';
+import { firestore } from '../../../src/fbase/fbase';
+import { ViewBoardContainer } from '../../../components/board';
+import { IMission, ISessionDoc } from '../../../components/context/app-context';
+import { useAppContext } from '../../../src/hooks';
 import Head from 'next/head';
 import { useSnackbar } from 'notistack';
 
@@ -14,7 +14,7 @@ interface IProps {
 
 const SessionPage: React.FC<IProps> = ({ id }) => {
   const router = useRouter();
-  const { setSessionDetails, setMission, sessionDetails } = useAppContext();
+  const { setSessionDetails, setMission } = useAppContext();
   const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const SessionPage: React.FC<IProps> = ({ id }) => {
   const checkCodeValid = async () => {
     const res = await firestore
       .collection('sessions')
-      .where('sessionID', '==', id)
+      .where('readID', '==', id)
       .limit(1)
       .get();
     const doc = res.docs[0];
@@ -36,7 +36,7 @@ const SessionPage: React.FC<IProps> = ({ id }) => {
       return;
     }
 
-    setSessionDetails({ sessionDocId: doc.id, sessionFriendlyId: id });
+    setSessionDetails({ sessionDocId: doc.id });
 
     doc.ref.onSnapshot((data) => {
       const sessionDocument = data.data() as ISessionDoc;
@@ -44,8 +44,6 @@ const SessionPage: React.FC<IProps> = ({ id }) => {
         router.push('/');
         return;
       }
-      setSessionDetails({ ...sessionDetails, readID: sessionDocument.readID });
-
       const mission: IMission = {
         ...sessionDocument.mission,
         start: (sessionDocument.mission.start as any).toDate() ?? new Date(),
@@ -59,7 +57,7 @@ const SessionPage: React.FC<IProps> = ({ id }) => {
       <Head>
         <title>Multiplayer session | PhasmoHelper</title>
       </Head>
-      <BoardContainer />
+      <ViewBoardContainer />
     </div>
   );
 };

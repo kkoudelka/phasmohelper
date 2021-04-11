@@ -6,7 +6,11 @@ import { DifficultyDisplay, GhostName, ObjectivesContainer } from '.';
 import { useAppContext } from '../../src/hooks';
 import { GameTime, HuntTimer } from '../timer';
 
-const MissionBoard: React.FC = () => {
+interface IProps {
+  readonly?: boolean;
+}
+
+const MissionBoard: React.FC<IProps> = ({ readonly }) => {
   const { reset } = useAppContext();
 
   return (
@@ -15,16 +19,18 @@ const MissionBoard: React.FC = () => {
         <Grid item>
           <Typography variant="h6">Mission board</Typography>
         </Grid>
-        <Grid item>
-          <Button variant="contained" color="primary" onClick={reset}>
-            Start new mission
-          </Button>
-        </Grid>
+        {!readonly && (
+          <Grid item>
+            <Button variant="contained" color="primary" onClick={reset}>
+              Start new mission
+            </Button>
+          </Grid>
+        )}
       </Grid>
       <Grid container direction="row" spacing={1}>
         <Grid item xs={12} md={4} container direction="column" spacing={1}>
           <Grid item>
-            <GhostName />
+            <GhostName readonly={readonly} />
           </Grid>
           <Grid item>
             <DifficultyDisplay />

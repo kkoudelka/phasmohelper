@@ -12,9 +12,10 @@ import useSound from 'use-sound';
 
 interface IProps {
   evidence: IEvidenceCard;
+  readonly?: boolean;
 }
 
-const EvidenceItem: React.FC<IProps> = ({ evidence }) => {
+const EvidenceItem: React.FC<IProps> = ({ evidence, readonly }) => {
   const { mission, changeEvidence } = useAppContext();
   const [playSelect] = useSound('/sounds/select.wav', { volume: 0.5 });
   const [playDeselect] = useSound('/sounds/deselect.wav', { volume: 0.5 });
@@ -31,6 +32,7 @@ const EvidenceItem: React.FC<IProps> = ({ evidence }) => {
   }, [isChecked]);
 
   const handleToggle = async () => {
+    if (readonly) return;
     await changeEvidence(evidence.type);
   };
 

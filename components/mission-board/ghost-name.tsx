@@ -2,7 +2,11 @@ import TextField from '@material-ui/core/TextField';
 import React, { useEffect, useState } from 'react';
 import { useAppContext } from '../../src/hooks';
 
-const GhostName: React.FC = () => {
+interface IProps {
+  readonly?: boolean;
+}
+
+const GhostName: React.FC<IProps> = ({ readonly }) => {
   const { mission, changeName } = useAppContext();
 
   const [gName, setGName] = useState(mission.ghostName);
@@ -30,7 +34,9 @@ const GhostName: React.FC = () => {
       label="Ghost name"
       fullWidth
       value={gName}
-      onChange={(event) => handleChange(event.currentTarget.value)}
+      onChange={
+        readonly ? null : (event) => handleChange(event.currentTarget.value)
+      }
     />
   );
 };

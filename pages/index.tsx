@@ -4,7 +4,7 @@ import Head from 'next/head';
 import React from 'react';
 import styles from '../styles/Home.module.css';
 import Link from 'next/link';
-import { getSessionId } from '../src/utils/generator';
+import { getReadOnlyId, getSessionId } from '../src/utils/generator';
 import { useRouter } from 'next/router';
 import { firestore } from '../src/fbase/fbase';
 import { defaults, ISessionDoc } from '../components/context/app-context';
@@ -15,8 +15,11 @@ const HomePage: React.FC = () => {
 
   const createSession = async () => {
     const id = await getSessionId();
+    const readID = await getReadOnlyId();
+
     const data: ISessionDoc = {
       sessionID: id,
+      readID,
       mission: defaults.mission,
     };
 

@@ -22,7 +22,28 @@ export const getSessionId = async (): Promise<string> => {
   return id;
 };
 
-const getString = (length: number): string => {
+export const getReadOnlyId = async (): Promise<string> => {
+  let id = '';
+
+  while (id === '') {
+    id = getString(8);
+
+    const res = await firebase
+      .firestore()
+      .collection('sessions')
+      .where('sessionID', '==', id)
+      .limit(1)
+      .get();
+    if (res.docs[0]?.exists ?? false) {
+      id = '';
+      continue;
+    }
+  }
+
+  return id;
+};
+
+const getString = (length: number = 5): string => {
   let result = '';
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';

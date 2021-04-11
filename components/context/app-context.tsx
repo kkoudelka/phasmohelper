@@ -35,11 +35,13 @@ export interface IMission {
 
 interface ISession {
   sessionDocId: string;
-  sessionFriendlyId: string;
+  sessionFriendlyId?: string;
+  readID?: string;
 }
 
 export interface ISessionDoc {
   sessionID: string;
+  readID: string;
   mission: IMission;
   lastUpdate?: Date;
 }
@@ -76,7 +78,7 @@ const AppContextProvider: React.FC<{} | IAppContextVals> = ({ children }) => {
   const handleChangeMission = async (mission: IMission) => {
     setMission(mission);
 
-    if (sessionDetails) {
+    if (sessionDetails && sessionDetails.sessionFriendlyId) {
       const doc = firestore
         .collection('sessions')
         .doc(sessionDetails.sessionDocId);

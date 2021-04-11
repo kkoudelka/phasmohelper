@@ -1,5 +1,5 @@
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppContext } from '../../src/hooks';
 import styles from '../../styles/SessionCode.module.css';
 import useClipboard from 'react-use-clipboard';
@@ -7,6 +7,12 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 const SessionCode: React.FC = () => {
   const { sessionDetails } = useAppContext();
+  const [expanded, setExpanded] = useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   const [
     isCopied,
     setCopied,
@@ -14,6 +20,15 @@ const SessionCode: React.FC = () => {
     `https://phasmohelper.app/session/${sessionDetails?.sessionFriendlyId}`,
     { successDuration: 5000 },
   );
+
+  const [
+    isCopiedViewOnly,
+    setCopiedViewOnly,
+  ] = useClipboard(
+    `https://phasmohelper.app/session/view/${sessionDetails?.readID}`,
+    { successDuration: 5000 },
+  );
+
   return (
     <a>
       <Typography variant="h6" onClick={setCopied}>
@@ -24,6 +39,7 @@ const SessionCode: React.FC = () => {
           </span>
         </Tooltip>
       </Typography>
+      <span className={styles.code}>{sessionDetails?.readID}</span>
     </a>
   );
 };
